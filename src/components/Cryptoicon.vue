@@ -46,19 +46,16 @@ export default {
       const symbol = this.lookupSymbol.has(this.uSymbol)
         ? this.lookupSymbol.get(this.uSymbol)
         : this.symbol;
-      let icon = this.$options.lib.find(i => i.symbol === symbol.toLowerCase());
-      if (icon) {
-        return !this.color ? icon.colorIcon() : icon.plainIcon(this.color);
-      } else if (this.generic) {
-        let icon = this.$options.lib.find(i => i.symbol == 'generic');
+
+      if (symbol) {
+        let icon = this.$options.lib.find(i => i.symbol === symbol.toLowerCase());
         if (icon) {
           return !this.color ? icon.colorIcon() : icon.plainIcon(this.color);
         }
-      } else {
-        // eslint-disable-next-line no-console
-        console.error(`Symbol of the icon is not correct: ${this.symbol}`);
-        return undefined;
       }
+      
+      let genericIcon = this.$options.lib.find(i => i.symbol == 'generic');
+      return !this.color ? genericIcon.colorIcon() : genericIcon.plainIcon(this.color);      
     }
   },
   lib: [],
